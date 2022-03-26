@@ -1,0 +1,15 @@
+body {
+    background: #6495ed;
+}
+
+h1 {
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+    color: #fff5ee;
+}
+
+div.container {
+    width: 960px;
+    height: 960px;
+    background: snow;
+}
