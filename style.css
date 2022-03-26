@@ -4,13 +4,15 @@ body {
 
 h1 {
     text-align: center;
+    margin-top: 5px;
+    margin-bottom: 5px;
     font-family: 'Courier New', Courier, monospace;
     color: #fff5ee;
 }
 
 div.container {
-    width: 960px;
-    height: 960px;
-    background: snow;
+    width: 680px;
+    height: 680px;
+    background: rgb(220, 220, 220);
     margin: auto;
 }
