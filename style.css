@@ -12,4 +12,5 @@ div.container {
     width: 960px;
     height: 960px;
     background: snow;
+    margin: auto;
 }
