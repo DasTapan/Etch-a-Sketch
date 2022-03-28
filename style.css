@@ -15,4 +15,6 @@ div.container {
     height: 680px;
     background: rgb(220, 220, 220);
     margin: auto;
+    border: solid 25px;
+    border-color: #ff4500;
 }
