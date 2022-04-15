@@ -2,19 +2,39 @@ body {
     background: #6495ed;
 }
 
+header {
+    display: flex;
+    align-items: center;
+    width: 730px;
+    margin: auto;
+    justify-content: space-around;
+}
+
 h1 {
-    text-align: center;
-    margin-top: 5px;
-    margin-bottom: 5px;
     font-family: 'Courier New', Courier, monospace;
     color: #fff5ee;
+    margin: auto;
+    margin-bottom: 5px;
+}
+
+button {
+    padding: 4px;
+    font-size: 15px;
+    font-weight: bold;
 }
 
 div.container {
     width: 680px;
     height: 680px;
     background: rgb(220, 220, 220);
+    display: flex;
+    flex-wrap: wrap;
     margin: auto;
     border: solid 25px;
     border-color: #ff4500;
+}
+
+div.container * {
+    box-sizing: border-box;
+    border: 1px solid black;
 }
