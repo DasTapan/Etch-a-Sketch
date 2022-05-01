@@ -2,6 +2,8 @@ const rgbButton = document.getElementById('rgb');
 const gradButton = document.getElementById('grad');
 const vanButton = document.getElementById('van');
 
+const globalContainerDiv = document.querySelector('.container');
+console.log(globalContainerDiv);
 const modes = document.querySelector('.modes');
 const buttons = modes.querySelectorAll('button');
 console.log(buttons);
@@ -21,12 +23,11 @@ function rgb() {
     vanButton.hidden = false;
     //listen for mouse cursor on container div
     //(this trigers hover function to change background)
-    const containerDiv = document.querySelector('.container');
-    containerDiv.addEventListener('mouseenter', hover);
+    globalContainerDiv.addEventListener('mouseenter', hover);
 
     //define hover logic on divs
     function hover() {
-        const divs = containerDiv.querySelectorAll('div');
+        const divs = globalContainerDiv.querySelectorAll('div');
         divs.forEach((div) => {
             div.addEventListener('mouseenter', () => {
                 div.classList.add('rgbBg');
@@ -42,12 +43,11 @@ function gradient() {
     vanButton.hidden = false;
     //listen for mouse cursor on container div
     //(this trigers hover function to change background)
-    const containerDiv = document.querySelector('.container');
-    containerDiv.addEventListener('mouseenter', hover);
+    globalContainerDiv.addEventListener('mouseenter', hover);
 
     //define hover logic on divs
     function hover() {
-        const divs = containerDiv.querySelectorAll('div');
+        const divs = globalContainerDiv.querySelectorAll('div');
         divs.forEach((div) => {
             div.addEventListener('mouseenter', () => {
                 div.classList.add('gradBg');
@@ -64,12 +64,11 @@ function vanilla() {
 
     //listen for mouse cursor on container div
     //(this trigers hover function to change background)
-    const containerDiv = document.querySelector('.container');
-    containerDiv.addEventListener('mouseenter', hover);
+    globalContainerDiv.addEventListener('mouseenter', hover);
 
     //define hover logic on divs
     function hover() {
-        const divs = containerDiv.querySelectorAll('div');
+        const divs = globalContainerDiv.querySelectorAll('div');
         divs.forEach((div) => {
             div.addEventListener('mouseenter', () => {
                 div.classList.add('vanillaBg');
@@ -80,15 +79,15 @@ function vanilla() {
 
 function generateDefault() {
     //create 16x16 template grid
+    if (globalContainerDiv.hasChildNodes()) globalContainerDiv.replaceChildren();
     let divId = 1;
-    const containerDiv = document.querySelector('.container');
     for (let i = 0; i < 256; i++) {
         const div = document.createElement('div');
         div.setAttribute('id', divId);
         divId++;
         div.style.width = 'calc(100% / 16)';
         div.style.height = 'calc(100% / 16)';
-        containerDiv.appendChild(div);
+        globalContainerDiv.appendChild(div);
     }
 }
 
