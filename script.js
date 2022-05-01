@@ -1,32 +1,100 @@
-//create 16x16 template grid
-let divId = 1;
-const containerDiv = document.querySelector('.container');
-for (let i = 0; i < 256; i++) {
-    const div = document.createElement('div');
-    div.setAttribute('id', divId);
-    divId++;
-    div.style.width = 'calc(100% / 16)';
-    div.style.height = 'calc(100% / 16)';
-    containerDiv.appendChild(div);
+const rgbButton = document.getElementById('rgb');
+const gradButton = document.getElementById('grad');
+const vanButton = document.getElementById('van');
+
+const modes = document.querySelector('.modes');
+const buttons = modes.querySelectorAll('button');
+console.log(buttons);
+
+vanilla();
+
+buttons.forEach(button => button.addEventListener('click', () => {
+    if (button.id == 'rgb') rgb();
+    if (button.id == 'grad') gradient();
+    if (button.id == 'van') vanilla();
+}));
+
+function rgb() {
+    generateDefault();
+    rgbButton.hidden = true;
+    gradButton.hidden = false;
+    vanButton.hidden = false;
+    //listen for mouse cursor on container div
+    //(this trigers hover function to change background)
+    const containerDiv = document.querySelector('.container');
+    containerDiv.addEventListener('mouseenter', hover);
+
+    //define hover logic on divs
+    function hover() {
+        const divs = containerDiv.querySelectorAll('div');
+        divs.forEach((div) => {
+            div.addEventListener('mouseenter', () => {
+                div.classList.add('rgbBg');
+            })
+        })
+    }
 }
 
-//listen for mouse cursor on container div
-//(this trigers hover function to change background)
-containerDiv.addEventListener('mouseenter', hover);
+function gradient() {
+    generateDefault();
+    rgbButton.hidden = false;
+    gradButton.hidden = true;
+    vanButton.hidden = false;
+    //listen for mouse cursor on container div
+    //(this trigers hover function to change background)
+    const containerDiv = document.querySelector('.container');
+    containerDiv.addEventListener('mouseenter', hover);
 
-//define hover logic on divs
-function hover() {
-    const divs = document.querySelectorAll('div');
-    divs.forEach((div) => {
-        div.addEventListener('mouseenter', () => {
-            div.classList.add('customBg');
+    //define hover logic on divs
+    function hover() {
+        const divs = containerDiv.querySelectorAll('div');
+        divs.forEach((div) => {
+            div.addEventListener('mouseenter', () => {
+                div.classList.add('gradBg');
+            })
         })
-    })
+    }
+}
+
+function vanilla() {
+    generateDefault();
+    rgbButton.hidden = false;
+    gradButton.hidden = false;
+    vanButton.hidden = true;
+
+    //listen for mouse cursor on container div
+    //(this trigers hover function to change background)
+    const containerDiv = document.querySelector('.container');
+    containerDiv.addEventListener('mouseenter', hover);
+
+    //define hover logic on divs
+    function hover() {
+        const divs = containerDiv.querySelectorAll('div');
+        divs.forEach((div) => {
+            div.addEventListener('mouseenter', () => {
+                div.classList.add('vanillaBg');
+            })
+        })
+    }
+}
+
+function generateDefault() {
+    //create 16x16 template grid
+    let divId = 1;
+    const containerDiv = document.querySelector('.container');
+    for (let i = 0; i < 256; i++) {
+        const div = document.createElement('div');
+        div.setAttribute('id', divId);
+        divId++;
+        div.style.width = 'calc(100% / 16)';
+        div.style.height = 'calc(100% / 16)';
+        containerDiv.appendChild(div);
+    }
 }
 
 //take user input through RESET button
-const button = document.querySelector('button');
-button.addEventListener('click', () => {
+const resetBtn = document.getElementById('reset');
+resetBtn.addEventListener('click', () => {
     let userInput = Number(window.prompt('Enter the number of boxes(n * n)', ''));
     //pass the value to create the custom box
     if (userInput > 100) {
@@ -38,6 +106,7 @@ button.addEventListener('click', () => {
 })
 
 function generateGrid(num) {
+    const containerDiv = document.querySelector('.container');
     //clean the box
     containerDiv.replaceChildren();
     //create new layout
