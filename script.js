@@ -31,6 +31,8 @@ function rgb() {
         divs.forEach((div) => {
             div.addEventListener('mouseenter', () => {
                 div.classList.add('rgbBg');
+                div.classList.remove('vanillaBg');
+                div.classList.remove('gradBg');
             })
         })
     }
@@ -51,6 +53,8 @@ function gradient() {
         divs.forEach((div) => {
             div.addEventListener('mouseenter', () => {
                 div.classList.add('gradBg');
+                div.classList.remove('rgbBg');
+                div.classList.remove('vanillaBg');
             })
         })
     }
@@ -72,6 +76,8 @@ function vanilla() {
         divs.forEach((div) => {
             div.addEventListener('mouseenter', () => {
                 div.classList.add('vanillaBg');
+                div.classList.remove('rgbBg');
+                div.classList.remove('gradBg');
             })
         })
     }
