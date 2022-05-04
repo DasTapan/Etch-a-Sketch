@@ -8,6 +8,7 @@ const modes = document.querySelector('.modes');
 const buttons = modes.querySelectorAll('button');
 console.log(buttons);
 
+//default mode
 vanilla();
 
 buttons.forEach(button => button.addEventListener('click', () => {
@@ -16,27 +17,6 @@ buttons.forEach(button => button.addEventListener('click', () => {
     if (button.id == 'van') vanilla();
 }));
 
-function rgb() {
-    generateDefault();
-    rgbButton.hidden = true;
-    gradButton.hidden = false;
-    vanButton.hidden = false;
-    //listen for mouse cursor on container div
-    //(this trigers hover function to change background)
-    globalContainerDiv.addEventListener('mouseenter', hover);
-
-    //define hover logic on divs
-    function hover() {
-        const divs = globalContainerDiv.querySelectorAll('div');
-        divs.forEach((div) => {
-            div.addEventListener('mouseenter', () => {
-                div.classList.add('rgbBg');
-                div.classList.remove('vanillaBg');
-                div.classList.remove('gradBg');
-            })
-        })
-    }
-}
 
 function gradient() {
     generateDefault();
@@ -60,6 +40,38 @@ function gradient() {
     }
 }
 
+function rgb() {
+    generateDefault();
+    rgbButton.hidden = true;
+    gradButton.hidden = false;
+    vanButton.hidden = false;
+
+    //listen for mouse cursor on container div
+    //(this trigers hover function to change background)
+    globalContainerDiv.addEventListener('mouseenter', hover);
+
+    function hover() {
+        const divs = globalContainerDiv.querySelectorAll('div');
+        divs.forEach(div => div.addEventListener('mouseenter', () => {
+            //remove prevailing classes
+            div.classList.remove('vanillaBg');
+            div.classList.remove('gradBg');
+            console.log(div);
+            generateRandomColor(div);
+        }));
+
+        function generateRandomColor(div) {
+            const fValue = Math.floor(Math.random() * 256);
+            const sValue = Math.floor(Math.random() * 256);
+            const tValue = Math.floor(Math.random() * 256);
+            console.log(fValue,sValue,tValue);
+
+            div.style.setProperty('background-color',`rgb(${fValue},${sValue},${tValue})`); 
+            console.log(div.style.getPropertyValue('background-color'));
+        }
+    }
+}
+
 function vanilla() {
     generateDefault();
     rgbButton.hidden = false;
@@ -75,6 +87,7 @@ function vanilla() {
         const divs = globalContainerDiv.querySelectorAll('div');
         divs.forEach((div) => {
             div.addEventListener('mouseenter', () => {
+                //activate corresponding class
                 div.classList.add('vanillaBg');
                 div.classList.remove('rgbBg');
                 div.classList.remove('gradBg');
