@@ -78,7 +78,6 @@ function rgb() {
             // console.log(fValue, sValue, tValue);
 
             div.style.setProperty('background-color',`rgb(${fValue},${sValue},${tValue})`);
-            // console.log(div.style.getPropertyValue('background-color'));
         }
     }
 }
