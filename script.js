@@ -1,6 +1,8 @@
 const rgbButton = document.getElementById('rgb');
 const gradButton = document.getElementById('grad');
 const vanButton = document.getElementById('van');
+//monkeypatch to reset count everytime layout changes
+let count = 11
 
 const globalContainerDiv = document.querySelector('.container');
 console.log(globalContainerDiv);
@@ -23,21 +25,30 @@ function gradient() {
     rgbButton.hidden = false;
     gradButton.hidden = true;
     vanButton.hidden = false;
+
     //listen for mouse cursor on container div
     //(this trigers hover function to change background)
     globalContainerDiv.addEventListener('mouseenter', hover);
 
-    //define hover logic on divs
     function hover() {
         const divs = globalContainerDiv.querySelectorAll('div');
-        divs.forEach((div) => {
-            div.addEventListener('mouseenter', () => {
+        divs.forEach(div => div.addEventListener('mouseenter', function () {
+            div.classList.remove('vanillaBg');
+            count--;
+            if (count > 0) chooseColor(div)
+            else {
+                div.style.removeProperty('background-color');
                 div.classList.add('gradBg');
-                div.classList.remove('rgbBg');
-                div.classList.remove('vanillaBg');
-            })
-        })
+            }
+        }))
     }
+
+    function chooseColor(div) {
+        const divStyle = div.style;
+        divStyle.setProperty('background-color', `white`);
+        divStyle.setProperty('filter', `brightness(${count / 10})`);
+    }
+
 }
 
 function rgb() {
@@ -56,7 +67,7 @@ function rgb() {
             //remove prevailing classes
             div.classList.remove('vanillaBg');
             div.classList.remove('gradBg');
-            console.log(div);
+            // console.log(div);
             generateRandomColor(div);
         }));
 
@@ -64,10 +75,10 @@ function rgb() {
             const fValue = Math.floor(Math.random() * 256);
             const sValue = Math.floor(Math.random() * 256);
             const tValue = Math.floor(Math.random() * 256);
-            console.log(fValue,sValue,tValue);
+            // console.log(fValue, sValue, tValue);
 
-            div.style.setProperty('background-color',`rgb(${fValue},${sValue},${tValue})`); 
-            console.log(div.style.getPropertyValue('background-color'));
+            div.style.setProperty('background-color',`rgb(${fValue},${sValue},${tValue})`);
+            // console.log(div.style.getPropertyValue('background-color'));
         }
     }
 }
@@ -89,7 +100,6 @@ function vanilla() {
             div.addEventListener('mouseenter', () => {
                 //activate corresponding class
                 div.classList.add('vanillaBg');
-                div.classList.remove('rgbBg');
                 div.classList.remove('gradBg');
             })
         })
@@ -124,9 +134,9 @@ resetBtn.addEventListener('click', () => {
 })
 
 function generateGrid(num) {
-    const containerDiv = document.querySelector('.container');
+    count = 11;
     //clean the box
-    containerDiv.replaceChildren();
+    globalContainerDiv.replaceChildren();
     //create new layout
     let divId = 1;
     for (let i = 0; i < (num * num); i++) {
@@ -135,6 +145,6 @@ function generateGrid(num) {
         divId++;
         div.style.width = `calc(100% / ${num})`;
         div.style.height = `calc(100% / ${num})`;
-        containerDiv.appendChild(div);
+        globalContainerDiv.appendChild(div);
     }
 }
